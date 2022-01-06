@@ -46,7 +46,7 @@ def get_explosion_particles(start_position: tuple[int, int]) -> list[Particle]:
     ####### 5 #######
 
     # 7
-    velocity: int = 30
+    velocity: int = 20
 
     ####### 8 #######
     # this loop creates a new particle layer

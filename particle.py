@@ -25,11 +25,13 @@ class Particle:  # 1
     def __post_init__(self):  # 7
         """use the data we got to set movement and alpha rates of change"""
         # a private float variable to manage the value of color[3]
-        self.__alpha_inc: float = 20 / self.radius  # 8
+        # the lower this number is, the longer it takes to dissipate
+        # used to reduce the particles alpha every call od the update method
+        self.__dissipation_rate: float = 5 / self.radius  # 8
 
     ####### 9 #######
     @property
-    def alpha(self):
+    def alpha(self) -> int:
         return self.color[3]
 
     @alpha.setter
@@ -46,23 +48,20 @@ class Particle:  # 1
     ####### 9 #######
 
     ####### 10 #######
-    def update(self):
+    def update(self) -> None:
         """update the particles values"""
         self.center.x += self.slope[0]
         self.center.y += self.slope[1]
 
-        self.alpha -= self.__alpha_inc
-        ####### 10 #######
+        self.alpha -= self.__dissipation_rate
+    ####### 10 #######  -next-> effects.py
 
 
-# -next-> effects.py
 
-# TODO: Update non-particle dataclass if this new layout works
-
-# class Particle:  # 12
+# class Particle:
 #     """particle model"""
 
-#     def __init__(  # 13
+#     def __init__(
 #         self,
 #         color: list[int, int, int, int],
 #         center: list[int, int],
@@ -70,14 +69,10 @@ class Particle:  # 1
 #         radius: float,
 #     ):
 #         """initialize everything needed to draw and update"""
-#         ####### 14 #######
+
 #         self.color: list[int, int, int, int] = color
 #         self.center: list[int, int] = center
 #         self.slope: tuple[int, int] = slope
 #         self.radius: float = radius
-#         ####### 14 #######
 
-#         ####### 15 #######
-#         self.__alpha: float = 255.0
-#         self.__alpha_inc: float = 20 / self.radius
-#         ####### 15 #######
+#         self.__alpha_inc: float = 10 / self.radius

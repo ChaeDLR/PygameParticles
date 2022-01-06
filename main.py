@@ -22,6 +22,9 @@ display: pygame.Surface = pygame.display.set_mode(  # 3
     vsync=1,  # request that the display vet
 )
 
+# 18
+clock = pygame.time.Clock()
+
 # by only allowing the events we need to use
 # we can optimize our event queue
 pygame.event.set_allowed(
@@ -32,6 +35,7 @@ pygame.event.set_allowed(
 live_particles: list = []  # 13
 
 while 1:  # 4
+    clock.tick(60) # 19
     # clear display by filling
     display.fill((10, 10, 10, 255))  # 5
 
