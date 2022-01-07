@@ -5,31 +5,30 @@ from dataclasses import dataclass  # python 3.7
 from pygame import Vector2
 
 
-@dataclass  # 2
-class Particle:  # 1
+@dataclass
+class Particle:
     """dataclass to model a particle"""
 
     # particle color (red, green, blue, alpha)
-    color: list[int, int, int, int]  # 3
+    color: list[int, int, int, int]
 
     # starting point
-    center: Vector2  # 4
+    center: Vector2
 
     # steer the particle (x, y)
-    slope: tuple[int, int]  # 5
+    slope: tuple[int, int]
 
     # distance from the center of the circle to the edge
     # any value lower than 1 will not display
-    radius: float  # 6
+    radius: float
 
-    def __post_init__(self):  # 7
+    def __post_init__(self):
         """use the data we got to set movement and alpha rates of change"""
         # a private float variable to manage the value of color[3]
         # the lower this number is, the longer it takes to dissipate
         # used to reduce the particles alpha every call od the update method
-        self.__dissipation_rate: float = 5 / self.radius  # 8
+        self.__dissipation_rate: float = 5 / self.radius
 
-    ####### 9 #######
     @property
     def alpha(self) -> int:
         return self.color[3]
@@ -45,34 +44,9 @@ class Particle:  # 1
         else:
             self.color[3] = value
 
-    ####### 9 #######
-
-    ####### 10 #######
     def update(self) -> None:
         """update the particles values"""
         self.center.x += self.slope[0]
         self.center.y += self.slope[1]
 
         self.alpha -= self.__dissipation_rate
-    ####### 10 #######  -next-> effects.py
-
-
-
-# class Particle:
-#     """particle model"""
-
-#     def __init__(
-#         self,
-#         color: list[int, int, int, int],
-#         center: list[int, int],
-#         slope: tuple[int, int],
-#         radius: float,
-#     ):
-#         """initialize everything needed to draw and update"""
-
-#         self.color: list[int, int, int, int] = color
-#         self.center: list[int, int] = center
-#         self.slope: tuple[int, int] = slope
-#         self.radius: float = radius
-
-#         self.__alpha_inc: float = 10 / self.radius

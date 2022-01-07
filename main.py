@@ -1,20 +1,15 @@
-####### START #######
-# create and run a pygame display
-# init
-#
+import pygame
 
-import pygame  # 1
+import effects
 
-import effects  # 12
-
-from sys import exit  # 9
+from sys import exit
 
 # init all of the pygame modules
-# pygame.init()  # 2 (numpass, numfail)
-pygame.display.init()  # 2
+# pygame.init() -> (numpass, numfail)
+pygame.display.init()
 
 # pygame can only have one display active at a time
-display: pygame.Surface = pygame.display.set_mode(  # 3
+display: pygame.Surface = pygame.display.set_mode(
     size=(640, 480),
     flags=pygame.SCALED,  # change something about the display
     depth=0,  # number of bits to use for color
@@ -22,38 +17,34 @@ display: pygame.Surface = pygame.display.set_mode(  # 3
     vsync=1,  # request that the display vet
 )
 
-# 18
 clock = pygame.time.Clock()
 
 # by only allowing the events we need to use
 # we can optimize our event queue
-pygame.event.set_allowed(
-    [pygame.QUIT, pygame.MOUSEBUTTONDOWN]
-)  # 11 -next-> Particle.py
+pygame.event.set_allowed([pygame.QUIT, pygame.MOUSEBUTTONDOWN])
 
 # list used to hold particles that should be drawn and updated
-live_particles: list = []  # 13
+live_particles: list = []
 
-while 1:  # 4
-    clock.tick(60) # 19
+while 1:
+    clock.tick(60)
     # clear display by filling
-    display.fill((10, 10, 10, 255))  # 5
+    display.fill((10, 10, 10, 255))
 
     # check event type to determine the input type
     # knowing the type also tells us what attributes
     # the event object will have
-    for event in pygame.event.get():  # 7
-        if event.type == pygame.QUIT:  # 8
-            exit()  # 10
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            exit()
 
-        elif event.type == pygame.MOUSEBUTTONDOWN:  # 14
-            if event.button == 1:  # 15 (left click)
+        elif event.type == pygame.MOUSEBUTTONDOWN:
+            if event.button == 1:
 
                 live_particles.extend(
                     effects.get_explosion_particles(start_position=event.pos)
-                )  # 16
+                )
 
-    # 17
     ####### update and draw #######
     if 0 < len(live_particles):  # if there are active particles
         # particle loop
@@ -74,7 +65,7 @@ while 1:  # 4
     # will not work for OPENGL displays
     # pass a rect (x, y, width, height) or a list of rects
     # if you want to only update a portion of the screen
-    pygame.display.update()  # 6
+    pygame.display.update()
 
     # updates entire display
     # pygame.display.flip()

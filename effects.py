@@ -1,18 +1,17 @@
-from pygame import Vector2  # 8
+from pygame import Vector2
 
-from random import randint  # 5
+from random import randint
 
-from particle import Particle  # 1
+from particle import Particle
 
-# 1
+
 def get_explosion_particles(start_position: tuple[int, int]) -> list[Particle]:
     """
     return a list of particles that have slopes
     that create and explosion effect
     """
-    particles: list[Particle] = []  # 3
+    particles: list[Particle] = []
 
-    ####### 4 #######
     # modifiers for a particles (x, y) movement
     # (-1) -> invert
     # 0 -> zero out increment. Do not move across the axis
@@ -35,20 +34,15 @@ def get_explosion_particles(start_position: tuple[int, int]) -> list[Particle]:
         # bottom right
         (1, 1),
     )
-    ####### 4 #######
 
-    ####### 5 #######
     # Generate pseudorandom color tuples
     # all alpha values start at fully opaque (255)
     colors: list[list[int, int, int, int]] = [
         [randint(20, 230), randint(20, 230), randint(20, 230), 255] for _ in range(4)
     ]
-    ####### 5 #######
 
-    # 7
     velocity: int = 20
 
-    ####### 8 #######
     # this loop creates a new particle layer
     # color, radius, rate of change
     for i, color in enumerate(colors):  # layer
@@ -81,5 +75,3 @@ def get_explosion_particles(start_position: tuple[int, int]) -> list[Particle]:
             )
 
     return particles
-    ####### 8 #######
-    # -next-> main_loop.py
