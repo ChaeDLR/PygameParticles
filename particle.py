@@ -26,7 +26,7 @@ class Particle:
         """use the data we got to set movement and alpha rates of change"""
         # a private float variable to manage the value of color[3]
         # the lower this number is, the longer it takes to dissipate
-        # used to reduce the particles alpha every call od the update method
+        # used to reduce the particles alpha every call of the update method
         self.__dissipation_rate: float = 5 / self.radius
 
     @property
